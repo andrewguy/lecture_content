@@ -4,4 +4,4 @@ This is a repository for various content created for lectures and training purpo
 
 A lot of this content is created using the [Manim animation engine (Community Edition)](https://github.com/ManimCommunity/manim/).
 
-Some of these animations are a work-in-progress - please be aware of this if you render these yourself.
+Some of these animations are a work-in-progress - please be aware that you may not be getting a finished product if you render these yourself.
