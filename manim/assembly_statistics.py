@@ -223,13 +223,34 @@ class NG50(Scene):
 
 class AssemblyStatistics(Scene):
     def construct(self):
+        self.n50_90_intro()
+        self.fadeOutAll()
         self.n50_90()
         self.fadeOutAll()
+        self.l50_intro()
+        self.fadeOutAll()
         self.l50()
+        self.fadeOutAll()
+        self.ng50_intro()
         self.fadeOutAll()
         self.ng50()
         self.fadeOutAll()
     
+    def n50_90_intro(self):
+        intro_text = Text("N50 and N90 statistics")
+        self.play(FadeIn(intro_text))
+        self.wait(5)
+
+    def ng50_intro(self):
+        intro_text = Text("NG50 statistic")
+        self.play(FadeIn(intro_text))
+        self.wait(5)
+
+    def l50_intro(self):
+        intro_text = Text("L50 statistic")
+        self.play(FadeIn(intro_text))
+        self.wait(5)
+
     def ng50(self):
         contig_lengths = [1, 1, 1, 2, 2, 3, 3, 4, 6, 7, 8, 8]
         shuffle(contig_lengths)
@@ -242,12 +263,16 @@ class AssemblyStatistics(Scene):
         contig_group.scale_to_fit_width(12)
         self.play(FadeIn(contig_group))
         self.wait(2)
+        s1_text = Text("Sort contigs by length").scale(0.8).to_corner(UL)
+        self.play(FadeIn(s1_text))
+        self.wait(2)
         contigs.sort(key=lambda x: x.get_width())
         # Move empty space to start of list again.
         contigs.insert(0, contigs.pop())
         contig_group = VGroup(*contigs)
         self.play(contig_group.animate().arrange().scale_to_fit_width(12))
         self.wait(2)
+        self.play(FadeOut(s1_text))
         b1 = Brace(contig_group)
         b1_text = b1.get_text("Estimated Genome Size")
         self.play(FadeIn(b1), FadeIn(b1_text))
@@ -265,7 +290,7 @@ class AssemblyStatistics(Scene):
         self.play(VGroup(b1, b1_text).animate().to_edge(DOWN))
         self.wait(1)
         self.play(Indicate(b3_g))
-        self.wait(5)
+        self.wait(10)
 
     def l50(self):
         contigs = [Rectangle(width=x) for x in contig_lengths]
@@ -275,10 +300,14 @@ class AssemblyStatistics(Scene):
         contig_group.scale_to_fit_width(12)
         self.play(FadeIn(contig_group))
         self.wait(2)
+        s1_text = Text("Sort contigs by length").scale(0.8).to_corner(UL)
+        self.play(FadeIn(s1_text))
+        self.wait(2)
         contigs.sort(key=lambda x: x.get_width())
         contig_group = VGroup(*contigs)
         self.play(contig_group.animate().arrange().scale_to_fit_width(12))
         self.wait(2)
+        self.play(FadeOut(s1_text))
         b1 = Brace(contig_group)
         b1_text = b1.get_text("Total Length of all Contigs")
         self.play(FadeIn(b1), FadeIn(b1_text))
@@ -296,7 +325,7 @@ class AssemblyStatistics(Scene):
         self.wait(2)
         b3_g.set_color(YELLOW)
         self.play(Indicate(b3_g))
-        self.wait(5)
+        self.wait(10)
 
     def n50_90(self):
         contigs = [Rectangle(width=x) for x in contig_lengths]
@@ -306,10 +335,14 @@ class AssemblyStatistics(Scene):
         contig_group.scale_to_fit_width(12)
         self.play(FadeIn(contig_group))
         self.wait(2)
+        s1_text = Text("Sort contigs by length").scale(0.8).to_corner(UL)
+        self.play(FadeIn(s1_text))
+        self.wait(2)
         contigs.sort(key=lambda x: x.get_width())
         contig_group = VGroup(*contigs)
         self.play(contig_group.animate().arrange().scale_to_fit_width(12))
         self.wait(2)
+        self.play(FadeOut(s1_text))
         b1 = Brace(contig_group)
         b1_text = b1.get_text("Total Length of all Contigs")
         self.play(FadeIn(b1), FadeIn(b1_text))
@@ -342,7 +375,7 @@ class AssemblyStatistics(Scene):
         b3_g.set_color(YELLOW)
         self.wait(2)
         self.play(Indicate(b3_g))
-        self.wait(5)
+        self.wait(10)
 
     def fadeOutAll(self):
         self.play(
