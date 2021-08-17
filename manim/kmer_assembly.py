@@ -4,6 +4,7 @@ import numpy as np
 kmer_size = 4
 sequence = "AAAGGCGTTGAGGTTT"
 kmers = [sequence[i: i+kmer_size] for i in range(len(sequence) - kmer_size + 1)]
+reads = [sequence[3*i:3*i+6] for i in range(len(sequence) // 3)]
 
 kmer_edges = []
 for i, kmer in enumerate(kmers):
@@ -150,7 +151,7 @@ class KmerGen(Scene):
             kmer_list.append(Text(kmer, color=WHITE, font="Consolas"))
         seq.to_edge(UP)
         self.play(Write(seq))
-        self.wait(2)
+        self.wait(10)
         kmer_gen_text = Text("Generate Kmers (k=4)", font="Noto Sans", size=0.6, color=GREEN)
         kmer_gen_text.to_edge(LEFT)
         self.play(FadeIn(kmer_gen_text))
@@ -178,12 +179,13 @@ class KmerGen(Scene):
         self.play(FadeIn(challenge_text_followup))
         self.wait(5)
         self.play(FadeIn(challenge_text_followup_2))
-        self.wait(5)
+        self.wait(10)
         self.play(FadeOut(challenge_text), FadeOut(challenge_text_followup), FadeOut(challenge_text_followup_2))
         hamiltonian_heading = Text("Hamiltonian\nde Bruijn graph", font="Noto Sans",
                                     size=0.8)
         hamiltonian_heading.to_corner(UL)
         self.play(FadeIn(hamiltonian_heading))
+        self.wait(5)
 
         kmer_exp_1 = Text("• For any given kmer, get the (k-1)-mer suffix", font="Noto Sans",
                                     size=0.7, t2s={"(k-1)": ITALIC}, t2c={'suffix': YELLOW}, disable_ligatures=True)
@@ -196,11 +198,11 @@ class KmerGen(Scene):
         kmer_exp_3.next_to(kmer_exp_2, DOWN, aligned_edge=LEFT)
 
         self.play(FadeIn(kmer_exp_1))
-        self.wait(3)
+        self.wait(5)
         self.play(FadeIn(kmer_exp_2))
-        self.wait(3)
+        self.wait(5)
         self.play(FadeIn(kmer_exp_3))
-        self.wait(3)
+        self.wait(5)
 
         node_exp_text = Text("Nodes: Kmers", font="Noto Sans",
                                     size=0.5, t2w={'Nodes:': BOLD}, t2c={'Nodes:': BLUE})
@@ -244,7 +246,7 @@ class KmerGen(Scene):
                                     size=0.8)
         eulerian_heading.to_corner(UL)
         self.play(FadeIn(eulerian_heading))
-        self.wait(2)
+        self.wait(8)
         kmer_exp_1 = Text("• For any given kmer, add the suffix and \n   prefix (k-1)-mers as graph nodes \n   (if not already present)", font="Noto Sans",
                                     size=0.7, t2s={"(k-1)": ITALIC}, t2c={'suffix': YELLOW, 'prefix': RED}, disable_ligatures=True)
         kmer_exp_2 = Text("• Add edge connecting suffix and prefix (k-1)-mers", font="Noto Sans",
@@ -256,11 +258,11 @@ class KmerGen(Scene):
         kmer_exp_3.next_to(kmer_exp_2, DOWN, aligned_edge=LEFT)
 
         self.play(FadeIn(kmer_exp_1))
-        self.wait(4)
+        self.wait(8)
         self.play(FadeIn(kmer_exp_2))
-        self.wait(4)
+        self.wait(8)
         self.play(FadeIn(kmer_exp_3))
-        self.wait(3)
+        self.wait(6)
 
 
         node_exp_text = Text("Nodes: Kmer suffix/prefix", font="Noto Sans",
@@ -297,7 +299,7 @@ class KmerGen(Scene):
         path_2 = VMobject(stroke_opacity=0.6, stroke_color=YELLOW, stroke_width=20)
         path_2.set_points_smoothly([*paths_xyz_through_eulerian[1]])
         self.play(Create(path_2), run_time=5)
-        self.wait(8)
+        self.wait(12)
         self.play(FadeOut(path_2))
         self.wait(2)
 
